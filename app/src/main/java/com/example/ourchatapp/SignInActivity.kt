@@ -29,10 +29,71 @@ class SignInActivity : AppCompatActivity() {
 
         signInBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
 
+        auth = FirebaseAuth.getInstance()
+        /// one user at a time , if logged in first
+        if (auth.currentUser != null){
+
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
+        progressDialogSignIn = ProgressDialog(this)
+
 
         signInBinding.signInTextToSignUp.setOnClickListener {
 
             startActivity(Intent(this, SignUpActivity::class.java))
         }
+
+//yazid change
+
+        signInBinding.loginButton.setOnClickListener {
+
+            email = signInBinding.loginetemail.text.toString()
+            password = signInBinding.loginetpassword.text.toString()
+
+            if (email.isEmpty() || password.isEmpty()){
+
+                signInBinding.loginetemail.error = "Email or Password is empty"
+                signInBinding.loginetpassword.requestFocus()
+
+
+            }else{
+
+                progressDialogSignIn.setTitle("Signing In")
+                progressDialogSignIn.setMessage("Please wait while we sign you in")
+                progressDialogSignIn.setCanceledOnTouchOutside(false)
+                progressDialogSignIn.show()
+
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+
+                    if (task.isSuccessful){
+
+                        progressDialogSignIn.dismiss()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }else{
+
+                        progressDialogSignIn.dismiss()
+                        signInBinding.loginetemail.error = "Email or Password is incorrect"
+                        signInBinding.loginetpassword.requestFocus()
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        progressDialogSignIn.dismiss()
+        finish()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        progressDialogSignIn.dismiss()
     }
 }
