@@ -6,6 +6,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
 
+
 }
 
 android {
@@ -69,6 +70,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.installations)
+    implementation(platform(libs.firebase.bom))
 
 // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
