@@ -11,7 +11,7 @@ plugins {
 
 android {
     namespace = "com.example.ourchatapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.ourchatapp"
