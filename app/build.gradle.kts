@@ -1,10 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-//    id("org.jetbrains.kotlin.parcelize")
+    //id("org.jetbrains.kotlin.parcelize")
     id("org.jetbrains.kotlin.kapt")
-//    id("androidx.navigation.safeargs.kotlin")
-//    id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 
 }
 
@@ -57,44 +57,44 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Lifecycle components
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.common.java8)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // Firebase
-    implementation("com.google.firebase:firebase-firestore:24.8.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.8.0")
-    implementation("com.google.firebase:firebase-auth:22.1.0")
-    implementation("com.google.firebase:firebase-auth-ktx:22.1.0")
-    implementation("com.google.firebase:firebase-storage:20.2.0")
-    implementation("com.google.firebase:firebase-messaging:24.1.0")
-    implementation("com.google.firebase:firebase-installations:17.1.4")
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.installations)
 
 // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
 // Glide
-    implementation("com.github.bumptech.glide:glide:4.15.1")
-    kapt("com.github.bumptech.glide:compiler:4.15.1")
+    implementation(libs.glide)
+    kapt(libs.compiler)
 
 // CircleImageView
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.circleimageview)
 
 // Kotlin components
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10")
+    implementation(libs.kotlin.stdlib.jdk8)
 
 // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
 
 // MaterialEditText
-    implementation("com.rengwuxian.materialedittext:library:2.1.4")
+    implementation(libs.library)
 
 // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 
 
 
