@@ -7,10 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.example.ourchatapp.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -32,14 +29,7 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        signInBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
-
         auth = FirebaseAuth.getInstance()
-        /// one user at a time , if logged in first
-
-        //TODO: check if user is already logged in
-        //TODO: When  user is already logged in,check if it takes you to main activity
-        //TODO: when the code down below is commented out, it takes you to main activity when you are already logged in
 
         if (auth.currentUser != null){
 
@@ -49,13 +39,13 @@ class SignInActivity : AppCompatActivity() {
 
         progressDialogSignIn = ProgressDialog(this)
 
+        signInBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
 
         signInBinding.signInTextToSignUp.setOnClickListener {
 
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-//yazid change **************************************
 
         signInBinding.loginButton.setOnClickListener {
 
@@ -79,14 +69,12 @@ class SignInActivity : AppCompatActivity() {
         progressDialogSignIn.show()
         progressDialogSignIn.setMessage("Signing In...")
 
-
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
 
             if (it.isSuccessful) {
 
                 progressDialogSignIn.dismiss()
                 startActivity(Intent(this, MainActivity::class.java))
-
 
             } else {
 
@@ -117,7 +105,6 @@ class SignInActivity : AppCompatActivity() {
         super.onBackPressed()
         progressDialogSignIn.dismiss()
         finish()
-
     }
 
     override fun onDestroy() {

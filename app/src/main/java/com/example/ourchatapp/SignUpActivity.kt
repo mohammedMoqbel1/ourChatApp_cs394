@@ -64,11 +64,9 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { it ->
 
-
             if (it.isSuccessful) {
 
                 val user = signUpAuth.currentUser
-
 
                 val hashMap = hashMapOf(
                     "userid" to user!!.uid,

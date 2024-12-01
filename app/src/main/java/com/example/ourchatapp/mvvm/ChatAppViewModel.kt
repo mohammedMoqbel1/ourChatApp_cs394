@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 
 class  ChatAppViewModel: ViewModel() {
 
+    private val firestore = FirebaseFirestore.getInstance()
     val message = MutableLiveData<String>()
-    val firestore = FirebaseFirestore.getInstance()
     val name = MutableLiveData<String>()
     val imageUrl = MutableLiveData<String>()
 
@@ -39,7 +39,7 @@ class  ChatAppViewModel: ViewModel() {
     fun getCurrentUser()= viewModelScope.launch(Dispatchers.IO){
         val context= MyApplication.instance.applicationContext
 
-        firestore.collection("Users").document(Utils.getUiLoggedIn()).addSnapshotListener{value,error->
+        firestore.collection("Users").document(Utils.getUiLoggedIn()).addSnapshotListener{ value, error->
 
             if(value!!.exists()&& value!=null){
                 val users = value.toObject(Users::class.java)
