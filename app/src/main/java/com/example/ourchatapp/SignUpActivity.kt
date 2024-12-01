@@ -58,14 +58,15 @@ class SignUpActivity : AppCompatActivity() {
 
 
             }
-            if (signUpBinding.signUpEtName.text.isNotEmpty() && signUpBinding.signUpEmail.text.isNotEmpty() && signUpBinding.signUpPassword.text.isNotEmpty()){
+             if (signUpBinding.signUpEtName.text.isNotEmpty() && signUpBinding.signUpEmail.text.isNotEmpty() && signUpBinding.signUpPassword.text.isNotEmpty()){
+
+                 signUpUser(name, email, password)
 
             }
-                signUpUser(name, email, password)
 
-            }
 
-            }
+        }
+    }
 
     private fun signUpUser(name: String, email: String, password: String) {
 
