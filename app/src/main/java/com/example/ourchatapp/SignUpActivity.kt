@@ -5,6 +5,7 @@ package com.example.ourchatapp
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.ourchatapp.databinding.ActivitySignUpBinding
@@ -33,49 +34,72 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
         }
 
-        signUpBinding.signUpBtn.setOnClickListener{
+        signUpBinding.signUpBtn.setOnClickListener {
             email = signUpBinding.signUpEmail.text.toString()
             password = signUpBinding.signUpPassword.text.toString()
             name = signUpBinding.signUpEtName.text.toString()
 
-            if (email.isEmpty() || password.isEmpty() || name.isEmpty()){
-                signUpBinding.signUpEmail.error = "Email or Password or Name is empty"
-                signUpBinding.signUpPassword.requestFocus()
-                signUpBinding.signUpEtName.requestFocus()
-            } else {
-                signUpUser(name, email, password)
-            }
-        }
-    }
-      private fun signUpUser(name: String, email : String, password : String){
-        signUpPd.setMessage("Please wait...")
-        signUpPd.show()
 
-        signUpAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful){
-                val user = hashMapOf(
+            if (signUpBinding.signUpEtName.text.isEmpty()){
+
+                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
+
+            }
+
+            if (signUpBinding.signUpPassword.text.isEmpty()){
+
+                Toast.makeText(this, "Password cant be empty", Toast.LENGTH_SHORT).show()
+
+
+            }
+            if (signUpBinding.signUpEmail.text.isEmpty()){
+
+                Toast.makeText(this, "Email cant be empty", Toast.LENGTH_SHORT).show()
+
+
+            }
+            if (signUpBinding.signUpEtName.text.isNotEmpty() && signUpBinding.signUpEmail.text.isNotEmpty() && signUpBinding.signUpPassword.text.isNotEmpty()){
+
+            }
+                signUpUser(name, email, password)
+
+            }
+
+            }
+
+    private fun signUpUser(name: String, email: String, password: String) {
+
+        signUpPd.show()
+        signUpPd.setMessage("Signing Up...")
+
+        signUpAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { it ->
+
+
+            if (it.isSuccessful) {
+
+                val user = signUpAuth.currentUser
+
+
+                val hashMap = hashMapOf(
+                    "userid" to user!!.uid!!,
                     "username" to name,
                     "useremail" to email,
                     "status" to "default",
                     "imageUrl" to "https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png"
                 )
 
-                firestore.collection("users").document(signUpAuth.currentUser!!.uid).set(user).addOnCompleteListener { task ->
-                    if (task.isSuccessful){
-                        signUpPd.dismiss()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    } else {
-                        signUpPd.dismiss()
-                        signUpBinding.signUpEmail.error = task.exception!!.message
-                        signUpBinding.signUpPassword.requestFocus()
-                    }
-                }
-            } else {
+                firestore.collection("Users").document(user.uid).set(hashMap)
+
                 signUpPd.dismiss()
-                signUpBinding.signUpEmail.error = task.exception!!.message
-                signUpBinding.signUpEmail.requestFocus()
+
+                startActivity(Intent(this, SignInActivity::class.java))
             }
+
         }
     }
+
 }
+
+
+
+

@@ -6,6 +6,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.example.ourchatapp.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class SignInActivity : AppCompatActivity() {
 
@@ -22,6 +25,8 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var progressDialogSignIn : ProgressDialog
     private lateinit var signInBinding: ActivitySignInBinding
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,38 +57,67 @@ class SignInActivity : AppCompatActivity() {
             email = signInBinding.loginetemail.text.toString()
             password = signInBinding.loginetpassword.text.toString()
 
-            if (email.isEmpty() || password.isEmpty()){
+            if (signInBinding.loginetemail.text.isEmpty()) {
 
-                signInBinding.loginetemail.error = "Email or Password is empty"
-                signInBinding.loginetpassword.requestFocus()
+                Toast.makeText(this, "Email cant be empty", Toast.LENGTH_SHORT).show()
 
+                if (signInBinding.loginetpassword.text.isEmpty()) {
 
-            }else{
+                    Toast.makeText(this, "Password cant be empty", Toast.LENGTH_SHORT).show()
+                    if (signInBinding.loginetpassword.text.isNotEmpty() && signInBinding.loginetemail.text.isNotEmpty()) {
 
-                progressDialogSignIn.setTitle("Signing In")
-                progressDialogSignIn.setMessage("Please wait while we sign you in")
-                progressDialogSignIn.setCanceledOnTouchOutside(false)
-                progressDialogSignIn.show()
+                        signIn(password, email)
 
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-
-                    if (task.isSuccessful){
-
-                        progressDialogSignIn.dismiss()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }else{
-
-                        progressDialogSignIn.dismiss()
-                        signInBinding.loginetemail.error = "Email or Password is incorrect"
-                        signInBinding.loginetpassword.requestFocus()
-                    }
+                     }
                 }
             }
+
         }
 
 
+
+
+
     }
+
+    private fun signIn(password: String, email: String) {
+
+        progressDialogSignIn.show()
+        progressDialogSignIn.setMessage("Signing In...")
+
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+
+            if (it.isSuccessful) {
+
+                progressDialogSignIn.dismiss()
+                startActivity(Intent(this, MainActivity::class.java))
+
+
+            } else {
+
+                progressDialogSignIn.dismiss()
+                Toast.makeText(this, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT).show()
+
+            }
+
+        }.addOnFailureListener{exception->
+            when(exception){
+                is FirebaseAuthInvalidUserException -> {
+                    Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
+                }
+                is FirebaseAuthInvalidCredentialsException -> {
+                    Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+    }
+
+
 
     override fun onBackPressed() {
         super.onBackPressed()
