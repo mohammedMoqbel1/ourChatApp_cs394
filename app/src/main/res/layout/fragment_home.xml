@@ -79,7 +79,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:backgroundTint="@color/midnightblue"
+        android:backgroundTint="@color/midNightBlue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardElevation="8dp"
