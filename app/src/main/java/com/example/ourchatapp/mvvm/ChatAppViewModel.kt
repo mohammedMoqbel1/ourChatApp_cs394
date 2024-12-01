@@ -23,8 +23,8 @@ class ChatAppViewModel: ViewModel() {
 
     fun getUsers(): LiveData<List<Users>> {
         return usersRepo.getUsers()
-
-
     }
+
+
 
 }

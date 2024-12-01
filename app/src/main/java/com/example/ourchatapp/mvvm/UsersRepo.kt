@@ -21,7 +21,6 @@ class UsersRepo {
         firestore.collection("Users").addSnapshotListener { snapshot, exception ->
 
             if (exception != null) {
-
                 return@addSnapshotListener
             }
 
@@ -32,19 +31,11 @@ class UsersRepo {
 
                 if (user!!.userid != Utils.getUiLoggedIn()) {
                     user.let {
-
-
                         usersList.add(it)
                     }
-
-
                 }
-
-
                 users.value = usersList
             }
-
-
         }
 
         return users
