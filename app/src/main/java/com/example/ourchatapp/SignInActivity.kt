@@ -41,11 +41,11 @@ class SignInActivity : AppCompatActivity() {
         //TODO: When  user is already logged in,check if it takes you to main activity
         //TODO: when the code down below is commented out, it takes you to main activity when you are already logged in
 
-//        if (auth.currentUser != null){
-//
-//            startActivity(Intent(this, MainActivity::class.java))
-//            finish()
-//        }
+        if (auth.currentUser != null){
+
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
 
         progressDialogSignIn = ProgressDialog(this)
 
