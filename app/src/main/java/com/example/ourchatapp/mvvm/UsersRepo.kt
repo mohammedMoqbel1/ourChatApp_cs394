@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.ourchatapp.Utils
 //import com.example.ourchatapp.model.Messages
-import com.example.ourchatapp.model.RecentChats
 import com.example.ourchatapp.model.Users
 //import com.example.ourchatapp.model.entity.Token
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,7 +30,7 @@ class UsersRepo {
 
                 val user = document.toObject(Users::class.java)
 
-                if (user!!.userid != Utils.getUidLoggedIn()) {
+                if (user!!.userid != Utils.getUiLoggedIn()) {
                     user.let {
 
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,16 +43,16 @@ class HomeFragment : Fragment() {
         rvUsers.layoutManager = layoutManagerUsers
 
 
-        //Yazid stopped here**************************
-        // find the error
 
-//        userViewModel.users.observe(viewLifecycleOwner, {
-//
-//
-//
-//            useradapter.setUsers(it)
-//            rvUsers.adapter = useradapter
-//        })
-//    }
+        userViewModel.getUsers().observe(viewLifecycleOwner, Observer {
+           useradapter.setList(it)
+            rvUsers.adapter= useradapter
+        })
+
+
+
+
+
+
     }
 }

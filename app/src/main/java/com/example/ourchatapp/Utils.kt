@@ -12,10 +12,10 @@ class Utils {
 
 
     companion object {
-        @SuppressLint("StaticFieldLeak")
-        val context = MyApplication.instance.applicationContext
-        @SuppressLint("StaticFieldLeak")
-        val firestore = FirebaseFirestore.getInstance()
+//        @SuppressLint("StaticFieldLeak")
+//        val context = MyApplication.instance.applicationContext
+//        @SuppressLint("StaticFieldLeak")
+//        val firestore = FirebaseFirestore.getInstance()
 
 
 
@@ -30,7 +30,7 @@ class Utils {
         const val CHANNEL_ID = "com.example.chatmessenger"
 
 
-        fun getUidLoggedIn(): String {
+        fun getUiLoggedIn(): String {
 
             if (auth.currentUser!=null){
 

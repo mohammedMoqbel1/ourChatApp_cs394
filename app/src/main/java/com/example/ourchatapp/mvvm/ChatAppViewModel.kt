@@ -1,5 +1,6 @@
 package com.example.ourchatapp.mvvm
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.ourchatapp.model.Users
@@ -17,4 +18,13 @@ class ChatAppViewModel: ViewModel() {
     val messageRepo = MessageRepo()
     var token: String? = null
     val chatlistRepo = ChatListRepo()
+
+
+
+    fun getUsers(): LiveData<List<Users>> {
+        return usersRepo.getUsers()
+
+
+    }
+
 }
