@@ -45,7 +45,7 @@ class SignInActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-//yazid change
+//yazid change **************************************
 
         signInBinding.loginButton.setOnClickListener {
 
