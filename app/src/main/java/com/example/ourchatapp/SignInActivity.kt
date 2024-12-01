@@ -36,11 +36,16 @@ class SignInActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         /// one user at a time , if logged in first
-        if (auth.currentUser != null){
 
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
+        //TODO: check if user is already logged in
+        //TODO: When  user is already logged in,check if it takes you to main activity
+        //TODO: when the code down below is commented out, it takes you to main activity when you are already logged in
+
+//        if (auth.currentUser != null){
+//
+//            startActivity(Intent(this, MainActivity::class.java))
+//            finish()
+//        }
 
         progressDialogSignIn = ProgressDialog(this)
 
@@ -58,25 +63,15 @@ class SignInActivity : AppCompatActivity() {
             password = signInBinding.loginetpassword.text.toString()
 
             if (signInBinding.loginetemail.text.isEmpty()) {
-
-                Toast.makeText(this, "Email cant be empty", Toast.LENGTH_SHORT).show()
-            }
-            if (signInBinding.loginetpassword.text.isEmpty()) {
-
-                Toast.makeText(this, "Password cant be empty", Toast.LENGTH_SHORT).show()
-            }
-
-            if (signInBinding.loginetpassword.text.isNotEmpty() && signInBinding.loginetemail.text.isNotEmpty()) {
+                Toast.makeText(this, "Email can't be empty", Toast.LENGTH_SHORT).show()
+            } else if (signInBinding.loginetpassword.text.isEmpty()) {
+                Toast.makeText(this, "Password can't be empty", Toast.LENGTH_SHORT).show()
+            } else if (signInBinding.loginetpassword.text.length < 6) {
+                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+            } else {
                 signIn(password, email)
-
             }
-
         }
-
-
-
-
-
     }
 
     private fun signIn(password: String, email: String) {

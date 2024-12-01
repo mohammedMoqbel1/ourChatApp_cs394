@@ -34,37 +34,26 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
         }
 
+        //TODO : In the sign up I have an exception for the passwor it wont work if the passsword is less  than 6 digits
+
+
         signUpBinding.signUpBtn.setOnClickListener {
             email = signUpBinding.signUpEmail.text.toString()
             password = signUpBinding.signUpPassword.text.toString()
             name = signUpBinding.signUpEtName.text.toString()
 
 
-            if (signUpBinding.signUpEtName.text.isEmpty()){
-
+            if (signUpBinding.signUpEtName.text.isEmpty()) {
                 Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
-
+            } else if (signUpBinding.signUpEmail.text.isEmpty()) {
+                Toast.makeText(this, "Email can't be empty", Toast.LENGTH_SHORT).show()
+            } else if (signUpBinding.signUpPassword.text.isEmpty()) {
+                Toast.makeText(this, "Password can't be empty", Toast.LENGTH_SHORT).show()
+            } else if (signUpBinding.signUpPassword.text.length < 6) {
+                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+            } else {
+                signUpUser(name, email, password)
             }
-
-            if (signUpBinding.signUpPassword.text.isEmpty()){
-
-                Toast.makeText(this, "Password cant be empty", Toast.LENGTH_SHORT).show()
-
-
-            }
-            if (signUpBinding.signUpEmail.text.isEmpty()){
-
-                Toast.makeText(this, "Email cant be empty", Toast.LENGTH_SHORT).show()
-
-
-            }
-             if (signUpBinding.signUpEtName.text.isNotEmpty() && signUpBinding.signUpEmail.text.isNotEmpty() && signUpBinding.signUpPassword.text.isNotEmpty()){
-
-                 signUpUser(name, email, password)
-
-            }
-
-
         }
     }
 
