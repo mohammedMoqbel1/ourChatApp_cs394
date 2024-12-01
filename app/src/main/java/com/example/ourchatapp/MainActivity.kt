@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.ourchatapp
 
 import android.os.Bundle
