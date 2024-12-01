@@ -49,10 +49,5 @@ class HomeFragment : Fragment() {
             rvUsers.adapter= useradapter
         })
 
-
-
-
-
-
     }
 }
