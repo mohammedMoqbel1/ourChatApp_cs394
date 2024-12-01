@@ -14,6 +14,7 @@ import com.example.ourchatapp.R
 import com.example.ourchatapp.adapter.UserAdapter
 import com.example.ourchatapp.databinding.FragmentHomeBinding
 import com.example.ourchatapp.mvvm.ChatAppViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment() {
 
@@ -21,6 +22,9 @@ class HomeFragment : Fragment() {
     lateinit var useradapter: UserAdapter
     lateinit var userViewModel: ChatAppViewModel
     lateinit var homdebinding: FragmentHomeBinding
+
+    lateinit var fbauth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fbauth = FirebaseAuth.getInstance()
+
         userViewModel = ViewModelProvider(this).get(ChatAppViewModel::class.java)
         useradapter = UserAdapter()
         rvUsers = view.findViewById(R.id.rvUsers)
@@ -48,6 +54,13 @@ class HomeFragment : Fragment() {
            useradapter.setList(it)
             rvUsers.adapter= useradapter
         })
+
+
+        homdebinding.logOut.setOnClickListener {
+            fbauth.signOut()
+
+
+        }
 
     }
 }
