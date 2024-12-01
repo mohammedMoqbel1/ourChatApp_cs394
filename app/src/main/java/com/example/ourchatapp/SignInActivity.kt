@@ -60,16 +60,15 @@ class SignInActivity : AppCompatActivity() {
             if (signInBinding.loginetemail.text.isEmpty()) {
 
                 Toast.makeText(this, "Email cant be empty", Toast.LENGTH_SHORT).show()
+            }
+            if (signInBinding.loginetpassword.text.isEmpty()) {
 
-                if (signInBinding.loginetpassword.text.isEmpty()) {
+                Toast.makeText(this, "Password cant be empty", Toast.LENGTH_SHORT).show()
+            }
 
-                    Toast.makeText(this, "Password cant be empty", Toast.LENGTH_SHORT).show()
-                    if (signInBinding.loginetpassword.text.isNotEmpty() && signInBinding.loginetemail.text.isNotEmpty()) {
+            if (signInBinding.loginetpassword.text.isNotEmpty() && signInBinding.loginetemail.text.isNotEmpty()) {
+                signIn(password, email)
 
-                        signIn(password, email)
-
-                     }
-                }
             }
 
         }

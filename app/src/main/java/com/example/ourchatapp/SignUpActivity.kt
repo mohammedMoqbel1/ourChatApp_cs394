@@ -81,7 +81,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
                 val hashMap = hashMapOf(
-                    "userid" to user!!.uid!!,
+                    "userid" to user!!.uid,
                     "username" to name,
                     "useremail" to email,
                     "status" to "default",

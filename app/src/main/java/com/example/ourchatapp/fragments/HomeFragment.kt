@@ -60,6 +60,7 @@ class HomeFragment : Fragment() {
             fbauth.signOut()
 
 
+
         }
 
     }
