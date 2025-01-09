@@ -64,7 +64,7 @@ class ChatFromHomeFragment : Fragment() {
 
 
         backbtn.setOnClickListener{
-            view.findNavController().navigate(R.id.action_chatFragment_to_homeFragment)
+            view.findNavController().navigate(R.id.action_chatFromHomeFragment_to_homeFragment)
         }
 
 
