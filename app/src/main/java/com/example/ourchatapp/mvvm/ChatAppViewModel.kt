@@ -56,5 +56,62 @@ class  ChatAppViewModel: ViewModel() {
 
     }
 
+//    Send Message
+    fun sendMessage(sender :String, receiver: String, friendName  : String, friendImage:String )= viewModelScope.launch(Dispatchers.IO){
+
+        val context= MyApplication.instance.applicationContext
+
+        val hashMap = hashMapOf<String,Any>(
+            "sender" to sender, "receiver" to receiver, "message" to message.value!!, "time" to Utils.getTime()
+        )
+
+        val uniqueId = listOf(sender,receiver).sorted()
+        uniqueId.joinToString(separator = "")
+
+        val friendNameSplit = friendName.split("\\s".toRegex())[0]
+        val mySharedPrefs = SharedPrefs(context)
+        mySharedPrefs.setValue("friendId",receiver)
+        mySharedPrefs.setValue("chatRoomId",uniqueId.toString())
+        mySharedPrefs.setValue("friendName",friendNameSplit)
+        mySharedPrefs.setValue("friendImage",friendImage)
+
+//        sending message
+
+        firestore.collection("Messages").document(uniqueId.toString()).collection("chats").document(Utils.getTime()).set(hashMap).addOnCompleteListener{task->
+
+
+//            for recent chats list
+            val hashMapForRecent = hashMapOf<String,Any>(
+                "friendId" to receiver,
+                "time" to Utils.getTime(),
+                "sender" to Utils.getUiLoggedIn(),
+                "message" to message.value!!,
+                "friendImage" to friendImage,
+                "name" to friendName,
+                "person" to "you"
+            )
+
+
+
+            firestore.collection("Conversation${Utils.getUiLoggedIn()}").document(receiver).set(hashMapForRecent)
+            firestore.collection("Conversation${receiver}").document(Utils.getUiLoggedIn()).update("message",message.value!!,"time",Utils.getTime(),"person",name.value!!)
+
+
+
+
+
+
+        }
+
+
+
+
+    }
+
+
+
 
 }
+
+
+
