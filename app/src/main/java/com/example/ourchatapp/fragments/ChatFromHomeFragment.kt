@@ -68,9 +68,9 @@ class ChatFromHomeFragment : Fragment() {
         }
 
 
-        Glide.with(requireContext()).load(args.recenetchats.friendImage).into(circleImageView)
-        tvStatus.setText(args.recenetchats.status)
-        tvUserName.setText(args.recenetchats.name)
+        Glide.with(requireContext()).load(args.recentchats.friendImage).into(circleImageView)
+        tvStatus.setText(args.recentchats.status)
+        tvUserName.setText(args.recentchats.name)
 
 
 
@@ -78,10 +78,10 @@ class ChatFromHomeFragment : Fragment() {
         chatfromhomebinding.lifecycleOwner = viewLifecycleOwner
 
         chatfromhomebinding.sendBtn.setOnClickListener{
-            chatAppViewModel.sendMessage(Utils.getUiLoggedIn(),args.recenetchats.friendId!!,args.recenetchats.name!!,args.recenetchats.friendImage!!)
+            chatAppViewModel.sendMessage(Utils.getUiLoggedIn(),args.recentchats.friendId!!,args.recentchats.name!!,args.recentchats.friendImage!!)
         }
 
-        chatAppViewModel.getMessages(args.recenetchats.friendId!!).observe(viewLifecycleOwner, Observer {
+        chatAppViewModel.getMessages(args.recentchats.friendId!!).observe(viewLifecycleOwner, Observer {
             initRecyclerView(it)
         })
 
