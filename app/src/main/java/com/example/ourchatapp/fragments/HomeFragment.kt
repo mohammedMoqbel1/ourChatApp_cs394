@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -67,9 +69,11 @@ class HomeFragment : Fragment() , OnItemClickListener {
 
         userViewModel.getUsers().observe(viewLifecycleOwner, Observer {
            useradapter.setList(it)
-            useradapter.setOnClickListener(this)
+
             rvUsers.adapter= useradapter
         })
+
+        useradapter.setOnClickListener(this)
 
 
         homdebinding.logOut.setOnClickListener {
@@ -85,6 +89,10 @@ class HomeFragment : Fragment() , OnItemClickListener {
     }
 
     override fun onUserSelected(position: Int, users: Users) {
-        TODO("Not yet implemented")
+
+        val action = HomeFragmentDirections.actionHomeFragmentToChatFragment(users)
+        view?.findNavController()?.navigate(action)
+
+
     }
 }
