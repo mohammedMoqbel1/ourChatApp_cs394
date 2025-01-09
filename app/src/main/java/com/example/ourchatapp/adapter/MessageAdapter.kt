@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ourchatapp.R
 import com.example.ourchatapp.Utils
-import com.example.ourchatapp.model.messages
+import com.example.ourchatapp.model.Messages
 
-class MessageAdapter: RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
+class MessageAdapter: RecyclerView.Adapter<MessageHolder>() {
 
-    private var listOfMessage= listOf<messages>()
+    private var listOfMessage= listOf<Messages>()
     private val LEFT =0
     private val RIGHT =1
 
@@ -30,7 +30,7 @@ class MessageAdapter: RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
 
     }
 
-    override fun getItemCount() = listOfMessage.size
+    override fun getItemCount(): Int {  return listOfMessage.size}
 
 
     override fun onBindViewHolder(holder: MessageHolder, position: Int) {
@@ -39,7 +39,7 @@ class MessageAdapter: RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
         holder.messageText.visibility = View.VISIBLE
         holder.timeOfSent.visibility = View.VISIBLE
 
-        holder.messageText.setText (message.messages)
+        holder.messageText.text= message.message
         holder.timeOfSent.text = message.time?.substring(0, 5) ?: ""
      }
 
@@ -48,7 +48,7 @@ class MessageAdapter: RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
     override fun getItemViewType(position: Int) =
         if (listOfMessage[position].sender == Utils.getUiLoggedIn())RIGHT else LEFT
 
-    fun setList(newList: List<messages>) {
+    fun setMessageList(newList: List<Messages>) {
 
         this.listOfMessage = newList
 
@@ -57,8 +57,10 @@ class MessageAdapter: RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
 
 
 
-    class MessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView.rootView) {
-        val messageText: TextView = itemView.findViewById(R.id.show_message)
-        val timeOfSent: TextView = itemView.findViewById(R.id.timeView)
-    }
+
+}
+
+class MessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView.rootView) {
+    val messageText: TextView = itemView.findViewById(R.id.show_message)
+    val timeOfSent: TextView = itemView.findViewById(R.id.timeView)
 }

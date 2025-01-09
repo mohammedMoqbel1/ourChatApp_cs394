@@ -18,7 +18,7 @@ import com.example.ourchatapp.R
 import com.example.ourchatapp.Utils
 import com.example.ourchatapp.adapter.MessageAdapter
 import com.example.ourchatapp.databinding.FragmentChatBinding
-import com.example.ourchatapp.model.messages
+import com.example.ourchatapp.model.Messages
 import com.example.ourchatapp.mvvm.ChatAppViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -35,7 +35,7 @@ class ChatFragment : Fragment() {
     private lateinit var tvUserName: TextView
     private lateinit var tvStatus: TextView
     private lateinit var backbtn:ImageView
-    private lateinit var MessageAdapter: MessageAdapter
+    private lateinit var messageAdapter: MessageAdapter
 
 
 
@@ -93,20 +93,18 @@ class ChatFragment : Fragment() {
 
 
 
+    private fun initRecyclerView(it:List<Messages>){
 
-
-    private fun initRecyclerView(it:List<messages>){
-
-        MessageAdapter = MessageAdapter()
+        messageAdapter = MessageAdapter()
 
         val layoutManager = LinearLayoutManager(context)
 
         chatBinding.messagesRecyclerView.layoutManager = layoutManager
         layoutManager.stackFromEnd = true
 
-        MessageAdapter.setList(it)
-        MessageAdapter.notifyDataSetChanged()
-        chatBinding.messagesRecyclerView.adapter = MessageAdapter
+        messageAdapter.setMessageList(it)
+        messageAdapter.notifyDataSetChanged()
+        chatBinding.messagesRecyclerView.adapter = messageAdapter
     }
 
     }

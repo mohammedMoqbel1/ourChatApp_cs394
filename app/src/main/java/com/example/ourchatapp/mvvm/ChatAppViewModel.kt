@@ -8,7 +8,7 @@ import com.example.ourchatapp.MyApplication
 import com.example.ourchatapp.SharedPrefs
 import com.example.ourchatapp.Utils
 import com.example.ourchatapp.model.Users
-import com.example.ourchatapp.model.messages
+import com.example.ourchatapp.model.Messages
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,9 +59,9 @@ class  ChatAppViewModel: ViewModel() {
 
     // receive messages
 
-    fun getMessages(friendid: String): LiveData<List<messages>> {
+    fun getMessages(friendId: String): LiveData<List<Messages>> {
 
-        return messageRepo.getMessages(friendid)
+        return messageRepo.getMessages(friendId)
     }
 
 
@@ -106,7 +106,12 @@ class  ChatAppViewModel: ViewModel() {
             firestore.collection("Conversation${receiver}").document(Utils.getUiLoggedIn()).update("message",message.value!!,"time",Utils.getTime(),"person",name.value!!)
 
 
+            if (task.isSuccessful){
 
+                message.value = ""
+
+
+            }
 
 
 

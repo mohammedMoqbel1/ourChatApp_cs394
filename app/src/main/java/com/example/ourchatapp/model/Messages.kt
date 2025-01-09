@@ -1,12 +1,12 @@
 package com.example.ourchatapp.model
 
-data class messages(
+data class Messages(
     val sender: String? = "",
     val receiver: String? = "",
-    val messages: String? = "",
+    val message: String? = "",
     val time: String? = ""
 )
 
 {
-    val id : String get() = "$sender-$receiver-$messages-$time"
+    val id : String get() = "$sender-$receiver-$message-$time"
 }
