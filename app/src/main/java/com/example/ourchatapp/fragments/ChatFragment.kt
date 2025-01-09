@@ -9,12 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.ourchatapp.R
 import com.example.ourchatapp.Utils
+import com.example.ourchatapp.adapter.MessageAdapter
 import com.example.ourchatapp.databinding.FragmentChatBinding
+import com.example.ourchatapp.model.messages
 import com.example.ourchatapp.mvvm.ChatAppViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -31,6 +35,7 @@ class ChatFragment : Fragment() {
     private lateinit var tvUserName: TextView
     private lateinit var tvStatus: TextView
     private lateinit var backbtn:ImageView
+    private lateinit var MessageAdapter: MessageAdapter
 
 
 
@@ -77,9 +82,31 @@ class ChatFragment : Fragment() {
             chatAppViewModel.sendMessage(Utils.getUiLoggedIn(),args.users.userid!!,args.users.username!!,args.users.imageUrl!!)
         }
 
+        chatAppViewModel.getMessages(args.users.userid!!).observe(viewLifecycleOwner, Observer {
+            initRecyclerView(it)
+        })
+
 
 
 
     }
 
-}
+
+
+
+
+    private fun initRecyclerView(it:List<messages>){
+
+        MessageAdapter = MessageAdapter()
+
+        val layoutManager = LinearLayoutManager(context)
+
+        chatBinding.messagesRecyclerView.layoutManager = layoutManager
+        layoutManager.stackFromEnd = true
+
+        MessageAdapter.setList(it)
+        MessageAdapter.notifyDataSetChanged()
+        chatBinding.messagesRecyclerView.adapter = MessageAdapter
+    }
+
+    }

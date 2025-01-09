@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AppInsightsSettings">
+    <option name="selectedTabId" value="Android Vitals" />
     <option name="tabSettings">
       <map>
         <entry key="Firebase Crashlytics">
@@ -9,9 +10,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.ourchatapp" />
-                  <option name="mobileSdkAppId" value="1:842650971611:android:34dc58f48b5f2af11fcbfe" />
-                  <option name="projectId" value="ourchatapp-69608" />
-                  <option name="projectNumber" value="842650971611" />
+                  <option name="mobileSdkAppId" value="1:777552553719:android:61d7497247d0b4a22755f2" />
+                  <option name="projectId" value="ourchatapp-9cc02" />
+                  <option name="projectNumber" value="777552553719" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

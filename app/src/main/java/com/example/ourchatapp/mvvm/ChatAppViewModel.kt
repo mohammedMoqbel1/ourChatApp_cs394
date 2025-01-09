@@ -8,6 +8,7 @@ import com.example.ourchatapp.MyApplication
 import com.example.ourchatapp.SharedPrefs
 import com.example.ourchatapp.Utils
 import com.example.ourchatapp.model.Users
+import com.example.ourchatapp.model.messages
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +57,15 @@ class  ChatAppViewModel: ViewModel() {
 
     }
 
-//    Send Message
+    // receive messages
+
+    fun getMessages(friendid: String): LiveData<List<messages>> {
+
+        return messageRepo.getMessages(friendid)
+    }
+
+
+        //    Send Message
     fun sendMessage(sender :String, receiver: String, friendName  : String, friendImage:String )= viewModelScope.launch(Dispatchers.IO){
 
         val context= MyApplication.instance.applicationContext
