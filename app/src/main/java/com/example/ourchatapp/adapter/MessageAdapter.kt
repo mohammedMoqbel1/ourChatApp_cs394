@@ -26,7 +26,7 @@ class MessageAdapter: RecyclerView.Adapter<MessageHolder>() {
             val view = inflater.inflate(R.layout.chatitemright, parent, false)
             MessageHolder(view)
         } else {
-            val view = inflater.inflate(R.layout.chatitemright, parent, false)
+            val view = inflater.inflate(R.layout.chatitemleft, parent, false)
             MessageHolder(view)
         }
 

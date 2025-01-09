@@ -32,7 +32,7 @@ class  ChatAppViewModel: ViewModel() {
 
     init {
         getCurrentUser()
-//        getRecentChats()
+        getRecentChats()
     }
 
 
