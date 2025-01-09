@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.ourchatapp.MyApplication
 import com.example.ourchatapp.R
 import com.example.ourchatapp.SignInActivity
 import com.example.ourchatapp.adapter.OnItemClickListener
@@ -86,6 +87,16 @@ class HomeFragment : Fragment() , OnItemClickListener {
         userViewModel.imageUrl.observe(viewLifecycleOwner,Observer{
             Glide.with(requireContext()).load(it).into(circleImageView)
         })
+
+
+
+        circleImageView.setOnClickListener {
+            view.findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+        }
+
+
+
+
 
     }
 

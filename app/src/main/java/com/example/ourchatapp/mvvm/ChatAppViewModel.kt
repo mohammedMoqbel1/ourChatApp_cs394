@@ -1,5 +1,6 @@
 package com.example.ourchatapp.mvvm
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
@@ -30,6 +31,7 @@ class  ChatAppViewModel: ViewModel() {
 
     init {
         getCurrentUser()
+//        getRecentChats()
     }
 
 
@@ -62,6 +64,35 @@ class  ChatAppViewModel: ViewModel() {
     fun getMessages(friendId: String): LiveData<List<Messages>> {
 
         return messageRepo.getMessages(friendId)
+    }
+
+    fun updateProfile()= viewModelScope.launch(Dispatchers.IO){
+        val context= MyApplication.instance.applicationContext
+        val hashMapUser = hashMapOf<String,Any>( "username" to name.value!!,"imageUrl" to imageUrl.value!!)
+
+        firestore.collection("Users").document(Utils.getUiLoggedIn()).update(hashMapUser).addOnCompleteListener { task ->
+
+            if (task.isSuccessful){
+                Toast.makeText(context,"UPDATE",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val mySharedPrefs = SharedPrefs(context)
+        val friendId = mySharedPrefs.getValue("friendId")
+
+        val hashMapDATE = hashMapOf<String,Any>("friendsImage" to imageUrl.value!!,"name" to name.value!!,"person" to name.value!!)
+
+
+        // updating the chatlist and recent list message, image etc
+
+        if(friendId!=null){
+            firestore.collection("Conversation${friendId}").document(Utils.getUiLoggedIn()).update(hashMapDATE)
+
+            firestore.collection("Conversation${Utils.getUiLoggedIn()}").document(friendId!!).update("person", "you")
+        }
+
+
+
     }
 
 
