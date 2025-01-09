@@ -20,24 +20,27 @@ import com.example.ourchatapp.MyApplication
 import com.example.ourchatapp.R
 import com.example.ourchatapp.SignInActivity
 import com.example.ourchatapp.adapter.OnItemClickListener
+import com.example.ourchatapp.adapter.OnRecentChatClicked
+import com.example.ourchatapp.adapter.RecentChatAdapter
 import com.example.ourchatapp.adapter.UserAdapter
 import com.example.ourchatapp.databinding.FragmentHomeBinding
+import com.example.ourchatapp.model.RecentChats
 import com.example.ourchatapp.model.Users
 import com.example.ourchatapp.mvvm.ChatAppViewModel
 import com.google.firebase.auth.FirebaseAuth
 import de.hdodenhof.circleimageview.CircleImageView
 
-class HomeFragment : Fragment() , OnItemClickListener {
+class HomeFragment : Fragment() , OnItemClickListener ,OnRecentChatClicked{
 
     lateinit var rvUsers: RecyclerView
     lateinit var useradapter: UserAdapter
     lateinit var userViewModel: ChatAppViewModel
     lateinit var homdebinding: FragmentHomeBinding
-
     lateinit var fbauth: FirebaseAuth
-
     lateinit var toolbar: Toolbar
     lateinit var circleImageView: CircleImageView
+    lateinit var recentchatadapter: RecentChatAdapter
+
 
 
     override fun onCreateView(
@@ -97,6 +100,20 @@ class HomeFragment : Fragment() , OnItemClickListener {
 
 
 
+        recentchatadapter = RecentChatAdapter()
+
+        userViewModel.getRecentChats().observe(viewLifecycleOwner,Observer{
+
+            homdebinding.rvRecentChats.layoutManager = LinearLayoutManager(activity)
+            recentchatadapter.setRecentChatList(it)
+            homdebinding.rvRecentChats.adapter = recentchatadapter
+
+        })
+
+        useradapter.setOnClickListener(this)
+
+
+
 
     }
 
@@ -109,4 +126,12 @@ class HomeFragment : Fragment() , OnItemClickListener {
 
 
     }
+
+    override fun getOnRecentChatClicked(position: Int, recentchatlist: RecentChats) {
+
+        val action = HomeFragmentDirections.actionHomeFragmentToChatFromHomeFragment(recentchatlist)
+        view?.findNavController()?.navigate(action)
+    }
 }
+
+

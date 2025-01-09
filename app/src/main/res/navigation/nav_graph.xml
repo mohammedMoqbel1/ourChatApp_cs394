@@ -74,5 +74,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             />
+        <argument
+            android:name="recenetchats"
+            app:argType="com.example.ourchatapp.model.RecentChats" />
     </fragment>
 </navigation>

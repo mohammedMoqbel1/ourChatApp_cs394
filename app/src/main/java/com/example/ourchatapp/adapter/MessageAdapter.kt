@@ -9,6 +9,9 @@ import com.example.ourchatapp.R
 import com.example.ourchatapp.Utils
 import com.example.ourchatapp.model.Messages
 
+
+// TODO: message adapter is supposed to be a data class
+
 class MessageAdapter: RecyclerView.Adapter<MessageHolder>() {
 
     private var listOfMessage= listOf<Messages>()

@@ -10,6 +10,7 @@ import com.example.ourchatapp.SharedPrefs
 import com.example.ourchatapp.Utils
 import com.example.ourchatapp.model.Users
 import com.example.ourchatapp.model.Messages
+import com.example.ourchatapp.model.RecentChats
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +26,7 @@ class  ChatAppViewModel: ViewModel() {
     val usersRepo = UsersRepo()
     val messageRepo = MessageRepo()
     var token: String? = null
-    val chatlistRepo = ChatListRepo()
+    val recentChatRepo = ChatListRepo()
 
 
 
@@ -57,6 +58,10 @@ class  ChatAppViewModel: ViewModel() {
         }
 
 
+    }
+
+    fun getRecentChats(): LiveData<List<RecentChats>> {
+        return recentChatRepo.getAllChatList()
     }
 
     // receive messages
