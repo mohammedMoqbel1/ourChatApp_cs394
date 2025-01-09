@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -16,7 +15,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ourchatapp.MyApplication
 import com.example.ourchatapp.R
 import com.example.ourchatapp.SignInActivity
 import com.example.ourchatapp.adapter.OnItemClickListener
@@ -39,7 +37,7 @@ class HomeFragment : Fragment() , OnItemClickListener ,OnRecentChatClicked{
     lateinit var fbauth: FirebaseAuth
     lateinit var toolbar: Toolbar
     lateinit var circleImageView: CircleImageView
-    lateinit var recentchatadapter: RecentChatAdapter
+    lateinit var recentChatAdapter: RecentChatAdapter
 
 
 
@@ -100,17 +98,17 @@ class HomeFragment : Fragment() , OnItemClickListener ,OnRecentChatClicked{
 
 
 
-        recentchatadapter = RecentChatAdapter()
+        recentChatAdapter = RecentChatAdapter()
 
         userViewModel.getRecentChats().observe(viewLifecycleOwner,Observer{
 
             homdebinding.rvRecentChats.layoutManager = LinearLayoutManager(activity)
-            recentchatadapter.setRecentChatList(it)
-            homdebinding.rvRecentChats.adapter = recentchatadapter
+            recentChatAdapter.setRecentChatList(it)
+            homdebinding.rvRecentChats.adapter = recentChatAdapter
 
         })
 
-        useradapter.setOnClickListener(this)
+        recentChatAdapter.setOnRecentChatListener(this)
 
 
 
@@ -127,9 +125,9 @@ class HomeFragment : Fragment() , OnItemClickListener ,OnRecentChatClicked{
 
     }
 
-    override fun getOnRecentChatClicked(position: Int, recentchatlist: RecentChats) {
+    override fun getOnRecentChatClicked(position: Int, recentChatList: RecentChats) {
 
-        val action = HomeFragmentDirections.actionHomeFragmentToChatFromHomeFragment(recentchatlist)
+        val action = HomeFragmentDirections.actionHomeFragmentToChatFromHomeFragment(recentChatList)
         view?.findNavController()?.navigate(action)
     }
 }

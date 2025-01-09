@@ -15,7 +15,7 @@ class ChatListRepo {
 
         val mainChatList = MutableLiveData<List<RecentChats>>()
 
-        firestore.collection("Conversations${Utils.getUiLoggedIn()}").orderBy("time",Query.Direction.DESCENDING)
+        firestore.collection("Conversation${Utils.getUiLoggedIn()}").orderBy("time",Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, error ->
 
                 if (error != null) {
@@ -24,9 +24,10 @@ class ChatListRepo {
 
                 val chatList = mutableListOf<RecentChats>()
 
-                snapshot?.forEach{ documnent ->
+                snapshot?.forEach{ document ->
 
-                    val recentModel = documnent.toObject(RecentChats::class.java)
+
+                    val recentModel = document.toObject(RecentChats::class.java)
 
                     if(recentModel.sender.equals(Utils.getUiLoggedIn())){
 
@@ -36,10 +37,9 @@ class ChatListRepo {
                         }
                     }
 
-                    mainChatList.value = chatList
-
-
                 }
+
+                mainChatList.value = chatList
 
 
             }

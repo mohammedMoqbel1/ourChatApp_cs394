@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.example.ourchatapp.R
 import com.example.ourchatapp.Utils
 import com.example.ourchatapp.adapter.MessageAdapter
-import com.example.ourchatapp.databinding.FragmentChatBinding
 import com.example.ourchatapp.databinding.FragmentChatfromHomeBinding
 import com.example.ourchatapp.model.Messages
 import com.example.ourchatapp.mvvm.ChatAppViewModel
@@ -69,7 +68,7 @@ class ChatFromHomeFragment : Fragment() {
         }
 
 
-        Glide.with(requireContext()).load(args.recenetchats.friendsimage).into(circleImageView)
+        Glide.with(requireContext()).load(args.recenetchats.friendImage).into(circleImageView)
         tvStatus.setText(args.recenetchats.status)
         tvUserName.setText(args.recenetchats.name)
 
@@ -79,10 +78,10 @@ class ChatFromHomeFragment : Fragment() {
         chatfromhomebinding.lifecycleOwner = viewLifecycleOwner
 
         chatfromhomebinding.sendBtn.setOnClickListener{
-            chatAppViewModel.sendMessage(Utils.getUiLoggedIn(),args.recenetchats.friendid!!,args.recenetchats.name!!,args.recenetchats.friendsimage!!)
+            chatAppViewModel.sendMessage(Utils.getUiLoggedIn(),args.recenetchats.friendId!!,args.recenetchats.name!!,args.recenetchats.friendImage!!)
         }
 
-        chatAppViewModel.getMessages(args.recenetchats.friendid!!).observe(viewLifecycleOwner, Observer {
+        chatAppViewModel.getMessages(args.recenetchats.friendId!!).observe(viewLifecycleOwner, Observer {
             initRecyclerView(it)
         })
 

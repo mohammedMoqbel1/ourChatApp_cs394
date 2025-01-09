@@ -2,20 +2,21 @@ package com.example.ourchatapp.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.google.firebase.storage.internal.ExponentialBackoffSender
 
 data class RecentChats(
-    val friendid: String? = "",
+    val friendId: String? = "",
+    val name: String? = "",
     val time: String? = "",
-    val friendsimage: String? = "",
+    val friendImage: String? = "",
     val sender: String? = "",
     val message: String? = "",
     val person: String? = "",
     val status: String? =  "",
-    val name: String? = "",
 
-    ) : Parcelable {
+
+    ):Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -27,15 +28,14 @@ data class RecentChats(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(friendid)
-        parcel.writeString(friendsimage)
-        parcel.writeString(time)
+        parcel.writeString(friendId)
         parcel.writeString(name)
+        parcel.writeString(time)
+        parcel.writeString(friendImage)
         parcel.writeString(sender)
         parcel.writeString(message)
         parcel.writeString(person)
         parcel.writeString(status)
-
     }
 
     override fun describeContents(): Int {
@@ -51,6 +51,4 @@ data class RecentChats(
             return arrayOfNulls(size)
         }
     }
-
-
 }

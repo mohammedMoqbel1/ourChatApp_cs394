@@ -12,9 +12,10 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class RecentChatAdapter: RecyclerView.Adapter<RecentChatHolder>() {
 
-    private var listofchats = listOf<RecentChats>()
+    private var listOfChats = listOf<RecentChats>()
     private var listener: OnRecentChatClicked? = null
     private var recentModel = RecentChats()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentChatHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recentchatlist, parent, false)
@@ -25,41 +26,42 @@ class RecentChatAdapter: RecyclerView.Adapter<RecentChatHolder>() {
 
     override fun getItemCount(): Int {
 
-        return listofchats.size
+        return listOfChats.size
 
     }
 
     override fun onBindViewHolder(holder: RecentChatHolder, position: Int) {
 
-        val recentchatlist = listofchats[position]
+        val recentChatList = listOfChats[position]
 
-        recentModel = recentchatlist
+        recentModel = recentChatList
 
-        holder.userName.setText(recentchatlist.name)
+        holder.userName.setText(recentChatList.name)
 
-        val themessage = recentchatlist.message!!.split("").take(4).joinToString(" ")
-        val makelastmessage = "${recentchatlist.person}: ${themessage} "
 
-        holder.lastMessage.setText(makelastmessage)
+        val theMessage = recentChatList.message!!.split("").take(4).joinToString("")
+        val makeLastMessage = "${recentChatList.person}: ${theMessage} "
 
-        Glide.with(holder.itemView.context).load(recentchatlist.friendsimage).into(holder.imageView)
 
-        holder.timeView.setText(recentchatlist.time!!.substring(0,5))
+        holder.lastMessage.setText(makeLastMessage)
 
-        holder.itemView.setOnClickListener {
-            listener?.getOnRecentChatClicked(position, recentchatlist)
+        Glide.with(holder.itemView.context).load(recentChatList.friendImage).into(holder.imageView)
+
+        holder.timeView.setText(recentChatList.time!!.substring(0,5))
+
+        holder.itemView.setOnClickListener{
+            listener?.getOnRecentChatClicked(position, recentChatList)
         }
-
 
     }
 
-       fun setOnRecentChatClickedListener(listener: OnRecentChatClicked){
+    fun setOnRecentChatListener(listener: OnRecentChatClicked){
         this.listener = listener
-     }
+    }
 
 
     fun setRecentChatList(list: List<RecentChats>){
-        this.listofchats = list
+        this.listOfChats = list
     }
 
 }
@@ -74,5 +76,5 @@ class RecentChatHolder(itemview : View) : RecyclerView.ViewHolder(itemview){
 }
 
 interface OnRecentChatClicked{
-    fun getOnRecentChatClicked(position: Int,recentchatlist: RecentChats)
+    fun getOnRecentChatClicked(position: Int, recentChatList: RecentChats)
 }

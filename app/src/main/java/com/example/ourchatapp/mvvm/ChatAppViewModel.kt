@@ -25,14 +25,14 @@ class  ChatAppViewModel: ViewModel() {
 
     val usersRepo = UsersRepo()
     val messageRepo = MessageRepo()
-    var token: String? = null
     val recentChatRepo = ChatListRepo()
+    var token: String? = null
 
 
 
     init {
         getCurrentUser()
-        getRecentChats()
+//        getRecentChats()
     }
 
 
