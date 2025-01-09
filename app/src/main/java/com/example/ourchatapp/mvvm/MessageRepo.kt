@@ -9,6 +9,7 @@ import com.google.firebase.firestore.Query
 
 class MessageRepo {
 
+
     private val firestore = FirebaseFirestore.getInstance()
 
     fun getMessages(friendId: String): LiveData<List<Messages>> {
