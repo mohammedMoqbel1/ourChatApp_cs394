@@ -107,6 +107,19 @@ class  ChatAppViewModel: ViewModel() {
 
 
 
+            if (task.isSuccessful){
+
+                message.value = ""
+
+
+
+            }
+
+
+
+
+
+
 
 
 

@@ -24,14 +24,13 @@ class MessageRepo {
                 }
 
                 val messagesList = mutableListOf<messages>()
-                if (snapshot != null && !snapshot.isEmpty) {
+                if (!snapshot!!.isEmpty) {
                     snapshot.documents.forEach { document ->
                         val messageModel = document.toObject(messages::class.java)
-                        if (messageModel != null &&
-                            (messageModel.sender.equals(Utils.getUiLoggedIn()) && messageModel.receiver.equals(friendid) ||
-                                    messageModel.sender.equals(friendid) && messageModel.receiver.equals(Utils.getUiLoggedIn()))) {
+                        if (messageModel!!.sender.equals(Utils.getUiLoggedIn()) && messageModel.receiver.equals(friendid) ||
+                                    messageModel!!.sender.equals(friendid) && messageModel.receiver.equals(Utils.getUiLoggedIn())) {
                             messageModel.let {
-                                messagesList.add(it)
+                                messagesList.add(it!!)
                             }
                         }
                     }
